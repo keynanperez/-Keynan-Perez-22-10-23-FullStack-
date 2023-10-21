@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const programmingLanguagesRouter = require("./routes/programmingLanguages");
+const weatherRouter = require("./routes/weather");
+const favoritesRouter = require("./routes/favorites");
+
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -11,7 +13,9 @@ app.use(
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
-app.use("/programming-languages", programmingLanguagesRouter);
+app.use("/weather", weatherRouter);
+app.use("/favorites", favoritesRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
