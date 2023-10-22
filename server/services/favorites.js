@@ -1,35 +1,33 @@
-const db = require('./db');
-const helper = require('../helper');
-const config = require('../config');
+const db = require("./db");
+const helper = require("../helper");
+const config = require("../config");
 
-async function getMultiple(page = 1){
+async function getMultiple(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT id, city, icon_phrase, temp, today_date
     FROM favorites LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = { page };
 
   return {
     data,
-    meta
-  }
+    meta,
+  };
 }
-async function remove(id){
-  const result = await db.query(
-    `DELETE FROM favorites WHERE id=${id}`
-  );
+async function remove(id) {
+  const result = await db.query(`DELETE FROM favorites WHERE id=${id}`);
 
-  let message = 'Error in deleting favorite';
+  let message = "Error in deleting favorite";
 
   if (result.affectedRows) {
-    message = 'favorite deleted successfully';
+    message = "favorite deleted successfully";
   }
 
-  return {message};
+  return { message };
 }
-async function create(favorite){
+async function create(favorite) {
   const result = await db.query(
     `INSERT INTO favorites 
     (id, city,icon_phrase, temp) 
@@ -37,15 +35,17 @@ async function create(favorite){
     ('${favorite.id}', ${favorite.city}, ${favorite.icon_phrase}, ${favorite.temp})`
   );
 
-  let message = 'Error in creating favorite';
+  let message = "Error in creating favorite";
 
   if (result.affectedRows) {
-    message = 'favorite created successfully';
+    message = "favorite created successfully";
   }
 
-  return {message};
+  return { message };
 }
 
 module.exports = {
-  getMultiple,remove,create
-}
+  getMultiple,
+  remove,
+  create,
+};

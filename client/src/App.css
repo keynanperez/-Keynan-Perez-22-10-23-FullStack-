@@ -40,7 +40,6 @@
 .main-center {
   display: grid;
   grid-template-columns: auto auto;
-  background-color:rgb(113, 108, 127);
   margin: 2px;
   padding: 2px;
 

@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import City from "../../components/City";
-import './main.css';
 
 
 function Main() {
@@ -22,8 +21,8 @@ function Main() {
     setCityId(key);
   };
   return (
-    <div >
-      <div className="main-search"style={{ width: "70%", float: "left" }} >
+    <div  class="columns">>
+      <div  class="column" >
         <div>
           search
           <input type="text" onInput={(e) => searchCity(e)} />{" "}
@@ -33,7 +32,7 @@ function Main() {
         <div></div>
       </div>
 
-      <div className="main-nav"style={{ width: "30%", float: "right" }}>
+      <div class="column">
         {cities?.map((item) => {
           return (
             <div onClick={(e) => selectCity(e, item.Key)}>{item.LocalizedName}<br/></div>

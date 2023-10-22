@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import './favorites.css';
 
 
 function Favorites() {
@@ -15,25 +14,26 @@ function Favorites() {
       setFavorites(fav.data.data);
     };
     getFavorite();
-  }, []);
+  }, [favCity]);
 
   const selectFavorite = (x) => {
     setFavCity(x);
   };
 
   const delFromFavorite = async (id) => {
-    const favoriteDelete = await axios.delete(api + id);
+    const favoriteDelete = await axios.delete(api+id);
+    setFavCity("")
   };
   return (
-    <div>
-      <div className="main-search" style={{ width: "70%", float: "left" }} >
+    <div  class="columns">
+          <div class="column">
         {favCity && (
-          <div className="city-card" >
+          <div class="box" >
             {favCity.city} <br /> {favCity.icon_phrase}
             <br />
             {favCity.temp}
             <br />
-            <button className="btn1" onClick={() => delFromFavorite(favCity.id)}>
+            <button onClick={() => delFromFavorite(favCity.id)}>
               delete from Favorites
             </button>
             <br />
@@ -42,15 +42,18 @@ function Favorites() {
         <div></div>
       </div>
 
-      <div className="main-nav"style={{ width: "30%", float: "right" }}>
+      <div class="column" >
         {favorites?.map((item) => {
           return (
-            <div key={item.id} value={item.id} onClick={(e) => selectFavorite(item)}>
+            <div  key={item.id} value={item.id} onClick={(e) => selectFavorite(item)} >
               {item.city}
+              
             </div>
+            
           );
         })}
       </div>
+      
     </div>
   );
 }

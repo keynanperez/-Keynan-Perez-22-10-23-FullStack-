@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const favorites = require('../services/favorites');
+const favorites = require("../services/favorites");
 
 /* GET favorites. */
-router.get('/', async function(req, res, next) {
+router.get("/", async function (req, res, next) {
   try {
     res.json(await favorites.getMultiple(req.query.page));
   } catch (err) {
@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
   }
 });
 /* DELETE favorite */
-router.delete('/:id', async function(req, res, next) {
+router.delete("/:id", async function (req, res, next) {
   try {
     res.json(await favorites.remove(req.params.id));
   } catch (err) {
@@ -21,7 +21,7 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 /* POST favorite */
-router.post('/', async function(req, res, next) {
+router.post("/", async function (req, res, next) {
   try {
     res.json(await favorites.create(req.body));
   } catch (err) {

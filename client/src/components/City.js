@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import './city.css';
 
 
 function City(props) {
@@ -41,12 +40,12 @@ function City(props) {
 
   return (
     cityWeather && (
-      <div className="city-card" >
+      <div class="box" >
         {props.city} <br /> {cityWeather?.Day.IconPhrase}
         <br />
         {fToC(cityWeather?.Temperature?.Maximum?.Value)}
         <br />
-        <button className="btn1" onClick={(e) => addToFavorite(e)}>Add To Favorite</button>
+        <button onClick={(e) => addToFavorite(e)}>Add To Favorite</button>
         <br />
       </div>
     )
