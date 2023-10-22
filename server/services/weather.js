@@ -16,7 +16,22 @@ async function getMultiple(page = 1){
     meta
   }
 }
+async function create(weather){
+  const result = await db.query(
+    `INSERT INTO weather 
+    (id, city, temp) 
+    VALUES 
+    ('${weather.id}', ${weather.city}, ${weather.temp})`
+  );
 
+  let message = 'Error in creating weather';
+
+  if (result.affectedRows) {
+    message = 'weather created successfully';
+  }
+
+  return {message};
+}
 module.exports = {
-  getMultiple
+  getMultiple,create
 }

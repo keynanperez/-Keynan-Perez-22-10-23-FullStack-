@@ -1,52 +1,58 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import './favorites.css';
+
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
-  const [cityName, setCityName] = useState("");
-  const [cityId, setCityId] = useState("");
-  const api ='http://localhost:3000/weather'
+  const [favCity, setFavCity] = useState("");
+  const api = "http://localhost:3000/favorites/";
 
   useEffect(() => {
-    const getFav = async () => {
+    const getFavorite = async () => {
       const fav = await axios.get(api);
-      setFavorites(fav);
-      console.log(favorites);
+      setFavorites(fav.data.data);
     };
-    getFav()
+    getFavorite();
   }, []);
 
+  const selectFavorite = (x) => {
+    setFavCity(x);
+  };
 
-  const selectFav = (e) => {
-    //alert(e.target.value)
-    setCityName(e.target.innerText);
-    console.log(e);
-
-    setCityId(e.target.value);
+  const delFromFavorite = async (id) => {
+    const favoriteDelete = await axios.delete(api + id);
   };
   return (
     <div>
-      <div style={{ width: "70%", float: "left" }}>
-        my favorites
+      <div className="main-search" style={{ width: "70%", float: "left" }} >
+        {favCity && (
+          <div className="city-card" >
+            {favCity.city} <br /> {favCity.icon_phrase}
+            <br />
+            {favCity.temp}
+            <br />
+            <button className="btn1" onClick={() => delFromFavorite(favCity.id)}>
+              delete from Favorites
+            </button>
+            <br />
+          </div>
+        )}{" "}
         <div></div>
       </div>
 
-      <div style={{ width: "30%", float: "right" }}>
+      <div className="main-nav"style={{ width: "30%", float: "right" }}>
         {favorites?.map((item) => {
           return (
-            <button
-              key={item.Key}
-              value={item.Key}
-              onClick={(e) => selectFav(e)}
-            >
-              {item.LocalizedName}
-            </button>
+            <div key={item.id} value={item.id} onClick={(e) => selectFavorite(item)}>
+              {item.city}
+            </div>
           );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default Favorites
+export default Favorites;

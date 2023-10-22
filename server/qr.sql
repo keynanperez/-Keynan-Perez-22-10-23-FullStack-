@@ -13,3 +13,11 @@ INSERT INTO favorites(id,city,icon_phrase,temp)
 VALUES 
 (60592,'Tengzhou','Sunny',14),
 (188046,'Tegucigalpa','Sunny',14)
+
+
+
+{
+            "id": 6044572,
+            "city": "'Tehout' ",
+            "temp": 15
+        }

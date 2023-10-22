@@ -16,7 +16,36 @@ async function getMultiple(page = 1){
     meta
   }
 }
+async function remove(id){
+  const result = await db.query(
+    `DELETE FROM favorites WHERE id=${id}`
+  );
+
+  let message = 'Error in deleting favorite';
+
+  if (result.affectedRows) {
+    message = 'favorite deleted successfully';
+  }
+
+  return {message};
+}
+async function create(favorite){
+  const result = await db.query(
+    `INSERT INTO favorites 
+    (id, city,icon_phrase, temp) 
+    VALUES 
+    ('${favorite.id}', ${favorite.city}, ${favorite.icon_phrase}, ${favorite.temp})`
+  );
+
+  let message = 'Error in creating favorite';
+
+  if (result.affectedRows) {
+    message = 'favorite created successfully';
+  }
+
+  return {message};
+}
 
 module.exports = {
-  getMultiple
+  getMultiple,remove,create
 }
